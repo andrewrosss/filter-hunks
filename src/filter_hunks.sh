@@ -22,13 +22,31 @@ print_usage() {
 # Parse command-line arguments
 include_pattern=""
 exclude_pattern=""
+hunk_regex_pattern=""
+
 while [[ $# -gt 0 ]]; do
     case $1 in
-        -I|--include)
+        -I)
             include_pattern="$2"
             shift 2
             ;;
-        -X|--exclude)
+        --include=*)
+            include_pattern="${1#*=}"
+            shift
+            ;;
+        --include)
+            include_pattern="$2"
+            shift 2
+            ;;
+        -X)
+            exclude_pattern="$2"
+            shift 2
+            ;;
+        --exclude=*)
+            exclude_pattern="${1#*=}"
+            shift
+            ;;
+        --exclude)
             exclude_pattern="$2"
             shift 2
             ;;
